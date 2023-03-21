@@ -1,0 +1,79 @@
+{
+    "movieInfoResult": {
+        "movieInfo": {
+            "movieCd": "20212077",
+            "movieNm": "노웨어 스페셜",
+            "movieNmEn": "Nowhere Special",
+            "movieNmOg": "",
+            "showTm": "95",
+            "prdtYear": "2020",
+            "openDt": "20211229",
+            "prdtStatNm": "개봉",
+            "typeNm": "장편",
+            "nations": [
+                {
+                    "nationNm": "이탈리아"
+                }
+            ],
+            "genres": [
+                {
+                    "genreNm": "드라마"
+                }
+            ],
+            "directors": [
+                {
+                    "peopleNm": "우베르토 파솔리니",
+                    "peopleNmEn": "Uberto Pasolini"
+                }
+            ],
+            "actors": [
+                {
+                    "peopleNm": "제임스 노턴",
+                    "peopleNmEn": "James Norton",
+                    "cast": "존",
+                    "castEn": "John"
+                }
+            ],
+            "showTypes": [
+                {
+                    "showTypeGroupNm": "2D",
+                    "showTypeNm": "디지털"
+                }
+            ],
+            "companys": [
+                {
+                    "companyCd": "20123058",
+                    "companyNm": "그린나래미디어(주)",
+                    "companyNmEn": "GREEN NARAE MEDIA",
+                    "companyPartNm": "배급사"
+                },
+                {
+                    "companyCd": "20137115",
+                    "companyNm": "(주)인터파크",
+                    "companyNmEn": "",
+                    "companyPartNm": "배급사"
+                },
+                {
+                    "companyCd": "20123058",
+                    "companyNm": "그린나래미디어(주)",
+                    "companyNmEn": "GREEN NARAE MEDIA",
+                    "companyPartNm": "수입사"
+                },
+                {
+                    "companyCd": "20137115",
+                    "companyNm": "(주)인터파크",
+                    "companyNmEn": "",
+                    "companyPartNm": "제공"
+                }
+            ],
+            "audits": [
+                {
+                    "auditNo": "2021-MF03069",
+                    "watchGradeNm": "전체관람가"
+                }
+            ],
+            "staffs": []
+        },
+        "source": "영화진흥위원회"
+    }
+}
