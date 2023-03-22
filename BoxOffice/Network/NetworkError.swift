@@ -8,6 +8,7 @@
 import Foundation
 
 enum NetworkError: LocalizedError, CustomStringConvertible {
+    
     case clientError
     case serverError
     case invalidURLComponents
@@ -25,4 +26,5 @@ enum NetworkError: LocalizedError, CustomStringConvertible {
             return "INVALID_URL_REQUEST"
         }
     }
+    
 }

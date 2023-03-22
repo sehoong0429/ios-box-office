@@ -14,7 +14,6 @@ final class URLSessionProvider {
     private init() {}
     
     private func dataTask(request: URLRequest, completionHandler: @escaping (Result<Data, NetworkError>) -> Void) {
-
         let task = URLSession.shared.dataTask(with: request) { data, urlResponse, error in
             
             guard error == nil else {
@@ -30,13 +29,15 @@ final class URLSessionProvider {
             if let data = data {
                 return completionHandler(.success(data))
             }
-        
         }
         task.resume()
     }
     
-    func request(api: MovieAPI, completionHandler: @escaping (Result<Data, NetworkError>) -> Void) {
-        guard var urlComponents = URLComponents(string: api.baseURL) else { return }
+    func performRequest(api: MovieAPI, completionHandler: @escaping (Result<Data, NetworkError>) -> Void) {
+        guard var urlComponents = URLComponents(string: api.baseURL) else {
+            completionHandler(.failure(.invalidURLComponents))
+            return
+        }
         urlComponents.path = api.path
         
         let keyParam = URLQueryItem(name: "key", value: api.key)
@@ -45,59 +46,15 @@ final class URLSessionProvider {
         queryParams.append(keyParam)
         urlComponents.queryItems = queryParams
         
-        guard let url = urlComponents.url else { return }
+        guard let url = urlComponents.url else {
+            completionHandler(.failure(.invalidURLRequest))
+            return
+        }
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = api.method
         
         dataTask(request: urlRequest, completionHandler: completionHandler)
     }
-//
-//    func parseJSON(_ data: Data) -> [DailyBoxOfficeItem]? {
-//
-//        let decoder = JSONDecoder()
-//
-//        do {
-//            let decodedData = try decoder.decode(BoxOfficItem.self, from: data)
-//
-//            let dailyLists = decodedData.boxOfficeResult.dailyBoxOfficeList
-//            let myMovielists = dailyLists.map { DailyBoxOfficeItem(rank: $0.rank, movieName: $0.movieName) }
-//
-//            return myMovielists
-//        } catch {
-//            print(error)
-//            return nil
-//        }
-//    }
 
-//    func parseJSON2(_ data: Data) -> MovieInfoClass? {
-//
-//        let decoder = JSONDecoder()
-//
-//        do {
-//            let decodedData = try decoder.decode(MovieInfo.self, from: data)
-//
-//            let movieInfo = decodedData.movieInfoResult.movieInfo
-//
-//            return movieInfo
-//        } catch {
-//            print(error)
-//            return nil
-//        }
-//    }
-//
-//    func decodeJson<T: Decodable>(_ data: Data, type: T.Type) throws -> T {
-//        let decoder = JSONDecoder()
-//        
-//        do {
-//            let decodedData = try decoder.decode(T.self, from: data)
-//            
-//            return decodedData
-//        } catch {
-//            print(error)
-//    
-//            throw NetworkError.clientError
-//        }
-//    }
-//    
 }

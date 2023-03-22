@@ -50,7 +50,7 @@ final class BoxOfficeTests: XCTestCase {
             XCTFail("Decode Failure")
             return
         }
-        XCTAssertEqual(movieInfo.movieInfoResult.movieInfo.movieNm, "노웨어 스페셜")
+        XCTAssertEqual(movieInfo.movieInfoResult.movieInfo.movieName, "노웨어 스페셜")
     }
     
 }

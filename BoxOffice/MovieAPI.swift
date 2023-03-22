@@ -8,8 +8,10 @@
 import Foundation
 
 enum MovieAPI {
+    
     case boxOffice(date: String)
     case detail(code: String)
+    
 }
 
 extension MovieAPI {

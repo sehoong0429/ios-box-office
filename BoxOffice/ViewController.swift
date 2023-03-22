@@ -9,62 +9,39 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let targetDt = "20220301"
-    let movieCd = "20124079"
+    let targetDate = "20220301"
+    let movieCode = "20124079"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print(today)
-        test()
-//        test2()
-        
+        fetchBoxOfficeData()
+        fetchMovieDetailData()
     }
-//
-//    func test() {
-//        URLSessionProvider.shared.request(api: .boxOffice(date: targetDt)) { result in
-//            switch result {
-//            case .success(let data):
-//                print(URLSessionProvider.shared.parseJSON(data))
-//                print(data)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
-//
-//    func test2() {
-//        URLSessionProvider.shared.request(api: .detail(code: movieCd)) { result in
-//            switch result {
-//            case .success(let data):
-//                print(URLSessionProvider.shared.parseJSON2(data))
-//                print(data)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
-    func test() {
-        URLSessionProvider.shared.request(api: .boxOffice(date: targetDt)) { result in
+
+    func fetchBoxOfficeData() {
+        URLSessionProvider.shared.performRequest(api: .boxOffice(date: targetDate)) { result in
             switch result {
             case .success(let data):
                 do {
                     let boxOfficeItem: BoxOfficItem = try JSONConverter.shared.decodeData(data, T: BoxOfficItem.self)
-                    let myMovielists = boxOfficeItem.boxOfficeResult.dailyBoxOfficeList.map { DailyBoxOfficeItem(rank: $0.rank, movieName: $0.movieName) }
-                    print(myMovielists)
+                    let myMovielists = boxOfficeItem.boxOfficeResult.dailyBoxOfficeList
+                    for movie in myMovielists {
+                        print(movie)
+                    }
                 } catch let error as NetworkError {
                     print(error.description)
                 } catch {
                     print("Unexpected error: \(error)")
                 }
-
+                
             case .failure(let error):
                 print(error)
             }
         }
     }
 
-    func test2() {
-        URLSessionProvider.shared.request(api: .detail(code: movieCd)) { result in
+    func fetchMovieDetailData() {
+        URLSessionProvider.shared.performRequest(api: .detail(code: movieCode)) { result in
             switch result {
             case .success(let data):
                 do {
@@ -80,8 +57,6 @@ class ViewController: UIViewController {
             }
         }
     }
-
-    
     
     func todayString() -> String {
         let dateFormatter = DateFormatter()
@@ -91,4 +66,3 @@ class ViewController: UIViewController {
     }
     
 }
-
