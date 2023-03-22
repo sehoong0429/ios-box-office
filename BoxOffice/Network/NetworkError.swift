@@ -10,6 +10,8 @@ import Foundation
 enum NetworkError: LocalizedError, CustomStringConvertible {
     case clientError
     case serverError
+    case invalidURLComponents
+    case invalidURLRequest
     
     var description: String {
         switch self {
@@ -17,6 +19,10 @@ enum NetworkError: LocalizedError, CustomStringConvertible {
             return "CLINET_ERROR"
         case .serverError:
             return "SERVER_ERRROR"
+        case .invalidURLComponents:
+            return "INVALID_URL_COMPONENTS"
+        case .invalidURLRequest:
+            return "INVALID_URL_REQUEST"
         }
     }
 }

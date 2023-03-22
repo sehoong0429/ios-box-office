@@ -42,7 +42,7 @@ final class BoxOfficeTests: XCTestCase {
         XCTAssertEqual(boxOffice.boxOfficeResult.boxofficeType, "일별 박스오피스")
     }
     
-    func testDecode_IfBoxOfficeDataProvide_ReturnBoxOfficeType2() {
+    func testDecode_IfMovieInfoDataProvide_ReturnMovieName() {
         // given when then
         guard let asset = NSDataAsset(name: "movie_info_sample", bundle: .main),
               let movieInfo = try? decoder?.decode(MovieInfo.self, from: asset.data)

@@ -52,38 +52,52 @@ final class URLSessionProvider {
         
         dataTask(request: urlRequest, completionHandler: completionHandler)
     }
-    
-    func parseJSON(_ data: Data) -> [DailyBoxOfficeItem]? {
-        
-        let decoder = JSONDecoder()
-        
-        do {
-            let decodedData = try decoder.decode(BoxOfficItem.self, from: data)
-            
-            let dailyLists = decodedData.boxOfficeResult.dailyBoxOfficeList
-            let myMovielists = dailyLists.map { DailyBoxOfficeItem(rank: $0.rank, movieName: $0.movieName) }
-            
-            return myMovielists
-        } catch {
-            print(error)
-            return nil
-        }
-    }
-    
-    func parseJSON2(_ data: Data) -> MovieInfoClass? {
-        
-        let decoder = JSONDecoder()
-        
-        do {
-            let decodedData = try decoder.decode(MovieInfo.self, from: data)
-            
-            let movieInfo = decodedData.movieInfoResult.movieInfo
-            
-            return movieInfo
-        } catch {
-            print(error)
-            return nil
-        }
-    }
-    
+//
+//    func parseJSON(_ data: Data) -> [DailyBoxOfficeItem]? {
+//
+//        let decoder = JSONDecoder()
+//
+//        do {
+//            let decodedData = try decoder.decode(BoxOfficItem.self, from: data)
+//
+//            let dailyLists = decodedData.boxOfficeResult.dailyBoxOfficeList
+//            let myMovielists = dailyLists.map { DailyBoxOfficeItem(rank: $0.rank, movieName: $0.movieName) }
+//
+//            return myMovielists
+//        } catch {
+//            print(error)
+//            return nil
+//        }
+//    }
+
+//    func parseJSON2(_ data: Data) -> MovieInfoClass? {
+//
+//        let decoder = JSONDecoder()
+//
+//        do {
+//            let decodedData = try decoder.decode(MovieInfo.self, from: data)
+//
+//            let movieInfo = decodedData.movieInfoResult.movieInfo
+//
+//            return movieInfo
+//        } catch {
+//            print(error)
+//            return nil
+//        }
+//    }
+//
+//    func decodeJson<T: Decodable>(_ data: Data, type: T.Type) throws -> T {
+//        let decoder = JSONDecoder()
+//        
+//        do {
+//            let decodedData = try decoder.decode(T.self, from: data)
+//            
+//            return decodedData
+//        } catch {
+//            print(error)
+//    
+//            throw NetworkError.clientError
+//        }
+//    }
+//    
 }
