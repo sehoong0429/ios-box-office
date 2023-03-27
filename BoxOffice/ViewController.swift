@@ -9,18 +9,18 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let targetDate = "20220301"
     let movieCode = "20124079"
     let provider = APIProvider.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchBoxOfficeData()
-        fetchMovieDetailData()
+       // fetchMovieDetailData()
     }
 
     func fetchBoxOfficeData() {
-        provider.performRequest(api: .boxOffice(date: targetDate)) { requestResult in
+        guard let yesterday = createYesterday() else { return }
+        provider.performRequest(api: .boxOffice(date: yesterday)) { requestResult in
             switch requestResult {
             case .success(let data):
                 do {
@@ -57,6 +57,14 @@ class ViewController: UIViewController {
                 print(error)
             }
         }
+    }
+    
+    private func createYesterday() -> String? {
+        let dateFormatter = DateFormatter()
+        let today = Date()
+        dateFormatter.dateFormat = "yyyymmdd"
+        guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today) else { return nil }
+        return dateFormatter.string(from: yesterday)
     }
     
 }
