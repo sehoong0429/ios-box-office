@@ -39,7 +39,7 @@ struct MovieInfo: Decodable, CustomStringConvertible {
     var description: String {
         let genres = genres.map { $0.genreName }.joined(separator: ", ")
         let directors = directors.map { $0.peopleName }.joined(separator: ", ")
-        let actors = actors.map { $0.peopleName }.joined(separator: ", ")
+        let actors = actors.map { $0.actorName }.joined(separator: ", ")
         let audits = audits.map { $0.watchGradeName}.joined(separator: ", ")
         let nations = nations.map { $0.nationName}.joined(separator: ", ")
         
@@ -58,10 +58,10 @@ struct MovieInfo: Decodable, CustomStringConvertible {
 }
 
 struct Actor: Decodable {
-    let peopleName: String
+    let actorName: String
     
     enum CodingKeys: String, CodingKey {
-        case peopleName = "peopleNm"
+        case actorName = "peopleNm"
     }
 }
 

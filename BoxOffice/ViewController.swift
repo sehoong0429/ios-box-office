@@ -23,7 +23,6 @@ final class ViewController: UIViewController {
         configureDataSource()
         fetchBoxOfficeData()
         configureRefreshControl()
-        fetchMovieDetailData()
         
     }
     
@@ -63,25 +62,7 @@ final class ViewController: UIViewController {
         }
     }
     
-    private func fetchMovieDetailData() {
-           provider.performRequest(api: .detail(code: movieCode)) { requestResult in
-               switch requestResult {
-               case .success(let data):
-                   do {
-                       let movieInfo: MovieInfoItem = try JSONConverter.shared.decodeData(data, T: MovieInfoItem.self)
-                       print(movieInfo)
-                   } catch let error as NetworkError {
-                       print(error.description)
-                   } catch {
-                       print("Unexpected error: \(error)")
-                   }
-               case .failure(let error):
-                   print(error)
-               }
-           }
-       }
-    
-    private func createFormattedDate(dateFormat: String) -> String? {
+    func createFormattedDate(dateFormat: String) -> String? {
         let dateFormatter = DateFormatter()
         let today = Date()
         dateFormatter.dateFormat = dateFormat
