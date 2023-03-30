@@ -13,6 +13,7 @@ final class ViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<ListSection, ListItem>!
     
     private let provider = APIProvider.shared
+    let movieCode = "20124079"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,8 @@ final class ViewController: UIViewController {
         configureDataSource()
         fetchBoxOfficeData()
         configureRefreshControl()
+        fetchMovieDetailData()
+        
     }
     
     private func fetchBoxOfficeData() {
@@ -58,6 +61,24 @@ final class ViewController: UIViewController {
             }
         }
     }
+    
+    private func fetchMovieDetailData() {
+           provider.performRequest(api: .detail(code: movieCode)) { requestResult in
+               switch requestResult {
+               case .success(let data):
+                   do {
+                       let movieInfo: MovieInfoItem = try JSONConverter.shared.decodeData(data, T: MovieInfoItem.self)
+                       print(movieInfo)
+                   } catch let error as NetworkError {
+                       print(error.description)
+                   } catch {
+                       print("Unexpected error: \(error)")
+                   }
+               case .failure(let error):
+                   print(error)
+               }
+           }
+       }
     
     private func createFormattedDate(dateFormat: String) -> String? {
         let dateFormatter = DateFormatter()

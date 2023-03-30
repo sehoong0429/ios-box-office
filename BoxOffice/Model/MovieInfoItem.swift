@@ -18,38 +18,41 @@ struct MovieInfoResult: Decodable {
 struct MovieInfo: Decodable, CustomStringConvertible {
     let movieCode: String
     let movieName: String
-    let movieNameEnglish: String
     let showTime: String
+    let productionYear: String
     let openDate: String
     let nations: [Nation]
     let genres: [Genre]
     let directors: [Director]
     let actors: [Actor]
-    let companys: [Company]
     let audits: [Audit]
     
     enum CodingKeys: String, CodingKey {
         case movieCode = "movieCd"
         case movieName = "movieNm"
-        case movieNameEnglish = "movieNmEn"
         case showTime = "showTm"
+        case productionYear = "prdtYear"
         case openDate = "openDt"
-        case nations, genres, directors, actors, companys, audits
+        case nations, genres, directors, actors, audits
     }
     
     var description: String {
-        let genreList = genres.map { $0.genreName }.joined(separator: ", ")
-        let directorList = directors.map { $0.peopleName }.joined(separator: ", ")
-        let actorList = actors.map { $0.peopleName }.joined(separator: ", ")
+        let genres = genres.map { $0.genreName }.joined(separator: ", ")
+        let directors = directors.map { $0.peopleName }.joined(separator: ", ")
+        let actors = actors.map { $0.peopleName }.joined(separator: ", ")
+        let audits = audits.map { $0.watchGradeName}.joined(separator: ", ")
+        let nations = nations.map { $0.nationName}.joined(separator: ", ")
         
         return """
-            영화명: \(movieName) (\(movieNameEnglish))
-            영화코드: \(movieCode)
-            개봉연도: \(openDate)
+            영화제목: \(movieName)
+            감독: \(directors)
+            개봉연도: \(productionYear)
+            개봉일: \(openDate)
             상영시간: \(showTime)
-            장르: \(genreList)
-            감독: \(directorList)
-            배우: \(actorList)
+            관람등급: \(audits)
+            제작국가: \(nations)
+            장르: \(genres)
+            배우: \(actors)
             """
     }
 }
@@ -67,17 +70,6 @@ struct Audit: Decodable {
     
     enum CodingKeys: String, CodingKey {
         case watchGradeName = "watchGradeNm"
-    }
-}
-
-struct Company: Decodable {
-    let companyName: String
-    let companyPartName: String
-    
-    enum CodingKeys: String, CodingKey {
-        case companyName = "companyNm"
-        case companyPartName = "companyPartNm"
-        
     }
 }
 
