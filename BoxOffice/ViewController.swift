@@ -11,6 +11,7 @@ final class ViewController: UIViewController {
     
     private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<ListSection, ListItem>!
+    private var items: [ListItem] = []
     
     private let provider = APIProvider.shared
     let movieCode = "20124079"
@@ -41,7 +42,7 @@ final class ViewController: UIViewController {
                                                 rankOldandNew: dailyBoxOffice.rankOldAndNew.rawValue,
                                                 movieName: dailyBoxOffice.movieName,
                                                 audienceCount: dailyBoxOffice.audienceCount,
-                                                audienceAcc: dailyBoxOffice.audienceAcc)
+                                                 audienceAcc: dailyBoxOffice.audienceAcc, movieCode: dailyBoxOffice.movieCode)
                         movieRanking.append(movieItem)
                     }
                     DispatchQueue.main.async {
@@ -154,8 +155,13 @@ final class ViewController: UIViewController {
 extension ViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-    }
-    
-}
 
+        guard let movieCode = self.dataSource.itemIdentifier(for: indexPath)?.movieCode,
+              let movieName = self.dataSource.itemIdentifier(for: indexPath)?.movieName else {
+                collectionView.deselectItem(at: indexPath, animated: true)
+                return
+        }
+        let movieDetailViewController = DetailMovieInfoController(movieCode: movieCode, movieName: movieName)
+        navigationController?.pushViewController(movieDetailViewController, animated: true)
+        }
+}
