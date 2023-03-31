@@ -43,17 +43,27 @@ final class DetailMovieInfoController: UIViewController {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = #imageLiteral(resourceName: "rabbit")
+        imageView.contentMode = .scaleAspectFit
         return imageView
+    }()
+    
+    private var indicatorView: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView(style: .large)
+        indicatorView.color = .systemRed
+        indicatorView.isHidden = true
+        indicatorView.translatesAutoresizingMaskIntoConstraints = false
+        return indicatorView
     }()
     
     init(movieCode: String, movieName: String) {
         self.movieCode = movieCode
         self.movieName = movieName
         super.init(nibName: nil, bundle: nil)
+        title = movieName
         view.backgroundColor = .white
         fetchMovieDetailData()
         setupViews()
+        fetchImageForMovie(movieName: movieName)
     }
     
     required init?(coder: NSCoder) {
@@ -61,28 +71,60 @@ final class DetailMovieInfoController: UIViewController {
     }
     
     private func fetchMovieDetailData() {
-           provider.performRequest(api: .detail(code: movieCode)) { [weak self] requestResult in
-               guard let self else { return }
-               switch requestResult {
-               case .success(let data):
-                   do {
-                       let movieInfo: MovieInfoItem = try JSONConverter.shared.decodeData(data, T: MovieInfoItem.self)
-
-                       let movieInfoItem = movieInfo.movieInfoResult.movieInfo
-                       print(movieInfoItem)
-                       DispatchQueue.main.async {
-                           self.updateStackView(movieInfoItem)
-                       }
-                   } catch let error as NetworkError {
-                       print(error.description)
-                   } catch {
-                       print("Unexpected error: \(error)")
-                   }
-               case .failure(let error):
-                   print(error)
-               }
-           }
-       }
+        provider.performRequest(api: .detail(code: movieCode)) { [weak self] requestResult in
+            guard let self else { return }
+            switch requestResult {
+            case .success(let data):
+                do {
+                    let movieInfo: MovieInfoItem = try JSONConverter.shared.decodeData(data, T: MovieInfoItem.self)
+                    
+                    let movieInfoItem = movieInfo.movieInfoResult.movieInfo
+                    //                    print(movieInfoItem)
+                    DispatchQueue.main.async {
+                        self.updateStackView(movieInfoItem)
+                    }
+                } catch let error as NetworkError {
+                    print(error.description)
+                } catch {
+                    print("Unexpected error: \(error)")
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func fetchImageForMovie(movieName: String) {
+        let query = ImageAPI.imageQuery(movieName)
+        let imageAPI = ImageAPI.imageSearchQuery(query: query)
+        indicatorView.isHidden = false
+        indicatorView.startAnimating()
+        
+        provider.performImageRequest(api: imageAPI, completionHandler: { [weak self] requestResult in
+            guard let self = self else { return }
+            switch requestResult {
+            case .success(let data):
+                do {
+                    let imageSearchResult: ImageSearchResult = try JSONConverter.shared.decodeData(data, T: ImageSearchResult.self)
+                    let imageInfo = imageSearchResult.documents.first 
+                    
+                    DispatchQueue.main.async {
+                        if let imageInfo = imageInfo, let url = URL(string: imageInfo.imageUrl) {
+                            self.imageView.load(url: url, originalWidth: imageInfo.width)
+                            self.stopIndicator()
+                        }
+                    }
+                } catch {
+                    self.stopIndicator()
+                    print("Unexpected error: \(error)")
+                }
+                
+            case .failure(let error):
+                self.stopIndicator()
+                print(error)
+            }
+        })
+    }
     
     func setupViews() {
         view.addSubview(scrollView)
@@ -97,20 +139,24 @@ final class DetailMovieInfoController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-//            imageView.widthAnchor.constraint(equalToConstant: 500),
             imageView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
-            imageView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
+            imageView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 15),
+            imageView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -15),
         ])
         
         NSLayoutConstraint.activate([
             mainStackview.topAnchor.constraint(equalTo: imageView.bottomAnchor),
-            mainStackview.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
-            mainStackview.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
-            mainStackview.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor)
+            mainStackview.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            mainStackview.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            mainStackview.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            mainStackview.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
         ])
         
+        imageView.addSubview(indicatorView)
+        NSLayoutConstraint.activate([
+            indicatorView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+            indicatorView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
+        ])
     }
     
     func updateStackView(_ item: MovieInfo) {
@@ -134,11 +180,8 @@ final class DetailMovieInfoController: UIViewController {
         
     }
     
-}
-
-extension [String] {
-    
-    var joinedString: String {
-        return self.joined(separator: ", ")
+    private func stopIndicator() {
+        indicatorView.stopAnimating()
+        indicatorView.isHidden = true
     }
 }

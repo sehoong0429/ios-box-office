@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		368A11C029D6A3F4007C8877 /* JoinedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368A11BF29D6A3F4007C8877 /* JoinedString.swift */; };
+		368A11C229D6A431007C8877 /* UIImageView+load.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368A11C129D6A431007C8877 /* UIImageView+load.swift */; };
 		36B59D5B29C83D3B00A4FC11 /* BoxOfficeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B59D5A29C83D3B00A4FC11 /* BoxOfficeItem.swift */; };
 		36B59E2329CAF99300A4FC11 /* APIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B59E2229CAF99300A4FC11 /* APIProvider.swift */; };
 		36B59E2529CAFA2A00A4FC11 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B59E2429CAFA2A00A4FC11 /* NetworkError.swift */; };
@@ -27,6 +29,8 @@
 		36CF325629D2926700E3DEE6 /* Int+decimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CF325529D2926700E3DEE6 /* Int+decimal.swift */; };
 		36CF325829D330C600E3DEE6 /* DetailMovieInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CF325729D330C600E3DEE6 /* DetailMovieInfoController.swift */; };
 		36CF325A29D5E2CF00E3DEE6 /* MovieInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CF325929D5E2CF00E3DEE6 /* MovieInfoView.swift */; };
+		36CF325C29D5F90600E3DEE6 /* ImageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CF325B29D5F90600E3DEE6 /* ImageAPI.swift */; };
+		36CF325E29D5FD7600E3DEE6 /* ImageSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CF325D29D5FD7600E3DEE6 /* ImageSearchResult.swift */; };
 		63DF20EF2970E1A0005DF7D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DF20EE2970E1A0005DF7D1 /* AppDelegate.swift */; };
 		63DF20F12970E1A0005DF7D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DF20F02970E1A0005DF7D1 /* SceneDelegate.swift */; };
 		63DF20F32970E1A0005DF7D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DF20F22970E1A0005DF7D1 /* ViewController.swift */; };
@@ -44,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		368A11BF29D6A3F4007C8877 /* JoinedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinedString.swift; sourceTree = "<group>"; };
+		368A11C129D6A431007C8877 /* UIImageView+load.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+load.swift"; sourceTree = "<group>"; };
 		36B59D5A29C83D3B00A4FC11 /* BoxOfficeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeItem.swift; sourceTree = "<group>"; };
 		36B59D6029C8469100A4FC11 /* BoxOfficeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoxOfficeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B59E2229CAF99300A4FC11 /* APIProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIProvider.swift; sourceTree = "<group>"; };
@@ -65,6 +71,8 @@
 		36CF325529D2926700E3DEE6 /* Int+decimal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+decimal.swift"; sourceTree = "<group>"; };
 		36CF325729D330C600E3DEE6 /* DetailMovieInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMovieInfoController.swift; sourceTree = "<group>"; };
 		36CF325929D5E2CF00E3DEE6 /* MovieInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoView.swift; sourceTree = "<group>"; };
+		36CF325B29D5F90600E3DEE6 /* ImageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPI.swift; sourceTree = "<group>"; };
+		36CF325D29D5FD7600E3DEE6 /* ImageSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchResult.swift; sourceTree = "<group>"; };
 		63DF20EB2970E1A0005DF7D1 /* BoxOffice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoxOffice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DF20EE2970E1A0005DF7D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63DF20F02970E1A0005DF7D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -117,6 +125,8 @@
 				36B59E2A29CAFDF600A4FC11 /* MovieInfoItem.swift */,
 				36B59E2C29CAFE5900A4FC11 /* MovieAPI.swift */,
 				36CF324F29D28E9900E3DEE6 /* MovieRankingItem.swift */,
+				36CF325B29D5F90600E3DEE6 /* ImageAPI.swift */,
+				36CF325D29D5FD7600E3DEE6 /* ImageSearchResult.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -164,6 +174,8 @@
 				36B59E5929CB5A5100A4FC11 /* URL+normalized.swift */,
 				36CF325329D2920200E3DEE6 /* String+NSMutableAttributed.swift */,
 				36CF325529D2926700E3DEE6 /* Int+decimal.swift */,
+				368A11BF29D6A3F4007C8877 /* JoinedString.swift */,
+				368A11C129D6A431007C8877 /* UIImageView+load.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -331,6 +343,7 @@
 				36B59E5329CB395E00A4FC11 /* URLSessionDataTaskable.swift in Sources */,
 				36CF325029D28E9900E3DEE6 /* MovieRankingItem.swift in Sources */,
 				36CF325229D2911500E3DEE6 /* MovieListCell.swift in Sources */,
+				368A11C029D6A3F4007C8877 /* JoinedString.swift in Sources */,
 				36B59E2729CAFCE900A4FC11 /* JSONConverter .swift in Sources */,
 				36B59E2529CAFA2A00A4FC11 /* NetworkError.swift in Sources */,
 				36B59D5B29C83D3B00A4FC11 /* BoxOfficeItem.swift in Sources */,
@@ -340,6 +353,9 @@
 				36CF325A29D5E2CF00E3DEE6 /* MovieInfoView.swift in Sources */,
 				36B59E2B29CAFDF600A4FC11 /* MovieInfoItem.swift in Sources */,
 				36B59E2D29CAFE5900A4FC11 /* MovieAPI.swift in Sources */,
+				368A11C229D6A431007C8877 /* UIImageView+load.swift in Sources */,
+				36CF325C29D5F90600E3DEE6 /* ImageAPI.swift in Sources */,
+				36CF325E29D5FD7600E3DEE6 /* ImageSearchResult.swift in Sources */,
 				36B59E5A29CB5A5100A4FC11 /* URL+normalized.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

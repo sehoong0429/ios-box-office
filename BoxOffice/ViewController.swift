@@ -142,7 +142,7 @@ extension ViewController: UICollectionViewDelegate {
                 collectionView.deselectItem(at: indexPath, animated: true)
                 return
         }
-        let movieDetailViewController = DetailMovieInfoController(movieCode: movieCode, movieName: movieName)
-        navigationController?.pushViewController(movieDetailViewController, animated: true)
+        let viewController = DetailMovieInfoController(movieCode: movieCode, movieName: movieName)
+        navigationController?.pushViewController(viewController, animated: true)
         }
 }
